@@ -1,25 +1,15 @@
-from collections import OrderedDict
-from typing import List, Tuple
-
-import matplotlib.pyplot as plt
-import numpy as np
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torchvision.transforms as transforms
-from datasets.utils.logging import disable_progress_bar
-from torch.utils.data import DataLoader
-
 import flwr as fl
-from flwr.common import Metrics
-from flwr_datasets import FederatedDataset
 
-from utils import DEVICE, get_client_fn, NUM_CLIENTS, weighted_average, load_datasets
-
+from utils import weighted_average, load_datasets
+from clients import DEVICE, get_client_fn
 
 if __name__ == '__main__':
-    train_loaders, val_loaders, test_loader = load_datasets()
-    # Create FedAvg strategy
+    # Not Using test Loader
+    train_loaders, val_loaders, test_loader = load_datasets(
+        './local_vehicles/',
+        10,
+        32,
+    )
     # Create FedAvg strategy
     strategy = fl.server.strategy.FedAvg(
         fraction_fit=1.0,
@@ -45,7 +35,7 @@ if __name__ == '__main__':
         # TODO: For malicious clients: make factory of client given NUM_CLIENTS and BAD ratio (3 out of 10  will be attackers)
         # For attacking clients, the FlowerClient will be different
         client_fn=get_client_fn(train_loaders, val_loaders),
-        num_clients=NUM_CLIENTS,
+        num_clients=10,
         config=fl.server.ServerConfig(num_rounds=5),
         strategy=strategy,
         client_resources=client_resources,

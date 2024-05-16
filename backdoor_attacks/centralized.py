@@ -2,7 +2,8 @@
 Code from https://flower.ai/docs/framework/tutorial-series-get-started-with-flower-pytorch.html
 '''
 
-from utils import load_datasets, test, train, Net, DEVICE
+from utils import load_datasets
+from clients import Net, train, test, DEVICE
 
 
 if __name__ == '__main__':
