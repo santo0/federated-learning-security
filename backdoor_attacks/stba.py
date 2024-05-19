@@ -1,6 +1,6 @@
 from local_dataset import (
-    get_vehicle_dataset, 
-    get_poisoned_vehicle_dataset, 
+    get_vehicle_dataset,
+    get_poisoned_vehicle_dataset,
     show_random_sample,
     split_dataset,
     get_partitions
@@ -67,8 +67,6 @@ if __name__ == '__main__':
 
     # Start simulation
     fl.simulation.start_simulation(
-        # TODO: For malicious clients: make factory of client given NUM_CLIENTS and BAD ratio (3 out of 10  will be attackers)
-        # For attacking clients, the FlowerClient will be different
         client_fn=get_client_fn(trainset, valset),
         num_clients=NUM_CLIENTS,
         config=fl.server.ServerConfig(num_rounds=5),

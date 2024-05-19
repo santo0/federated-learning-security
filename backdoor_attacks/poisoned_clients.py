@@ -9,6 +9,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from clients import FlowerClient, DEVICE, Net
 
+
 def get_client_fn(
         train_loaders: List[DataLoader], val_loaders: List[DataLoader]) -> FlowerClient:
     # loaders injection
